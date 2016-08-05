@@ -30,9 +30,15 @@ public class createNewUser extends AppCompatActivity {
                 String passwd = password.getText().toString();
 
                 //Need to hash the password
-                byte[] test = hashPass("Nick");
-                String output = String.format("%064x", new java.math.BigInteger(1, test));
-                Toast.makeText(getApplicationContext(), user + " " + output, Toast.LENGTH_LONG).show();
+                byte[] hash = hashPass(passwd);
+                String output = String.format("%064x", new java.math.BigInteger(1, hash));
+
+                byte[] r2 = hashPass(output);
+                String output2 = String.format("%064x", new java.math.BigInteger(1, r2));
+
+                byte[] r3 = hashPass(output2);
+                String output3 = String.format("%064x", new java.math.BigInteger(1, r3));
+                Toast.makeText(getApplicationContext(), user + " " + output3, Toast.LENGTH_LONG).show();
             }
         });
     }
