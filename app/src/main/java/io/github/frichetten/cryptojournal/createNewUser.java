@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,16 +30,18 @@ public class createNewUser extends AppCompatActivity {
                 String user = username.getText().toString();
                 String passwd = password.getText().toString();
 
+                Toast t = Toast.makeText(getApplicationContext(), "Creating User", Toast.LENGTH_LONG);
+                t.setGravity(Gravity.CENTER,0,0);
+                t.show();
+
                 //Need to hash the password
-                byte[] hash = hashPass(passwd);
-                String output = String.format("%064x", new java.math.BigInteger(1, hash));
+                String output = passwd;
+                for(int i=0;i<1000;i++){
+                    byte[] hashHolder = hashPass(output);
+                    output = String.format("%064x", new java.math.BigInteger(1, hashHolder));
+                }
 
-                byte[] r2 = hashPass(output);
-                String output2 = String.format("%064x", new java.math.BigInteger(1, r2));
 
-                byte[] r3 = hashPass(output2);
-                String output3 = String.format("%064x", new java.math.BigInteger(1, r3));
-                Toast.makeText(getApplicationContext(), user + " " + output3, Toast.LENGTH_LONG).show();
             }
         });
     }
