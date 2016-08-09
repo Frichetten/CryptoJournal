@@ -51,8 +51,8 @@ public class createNewUser extends AppCompatActivity {
 
                 //Now that we have the input we must put that input into the storage media
                 try {
-                    FileOutputStream out = openFileOutput("Storage.txt", Context.MODE_PRIVATE);
-                    String key = user + ":::" + output;
+                    FileOutputStream out = openFileOutput("Storage.txt", Context.MODE_APPEND);
+                    String key = user + ":::" + output + "\n";
                     out.write(key.getBytes());
                     out.close();
                     String content = "";
