@@ -52,13 +52,18 @@ public class createNewUser extends AppCompatActivity {
                 //Now that we have the input we must put that input into the storage media
                 try {
                     FileOutputStream out = openFileOutput("Storage.txt", Context.MODE_PRIVATE);
-                    out.write(user.getBytes());
+                    String key = user + ":::" + output;
+                    out.write(key.getBytes());
                     out.close();
-                    Log.d("Results", user);
+                    String content = "";
+                    //FileInputStream fis = openFileInput("Storage.txt");
+                    //byte[] input = new byte[fis.available()];
+                    //while(fis.read(input) != -1)
+                    //    content += new String(input);
+                    //Log.d("Result", content);
                 }   catch (java.io.FileNotFoundException e) { Log.d("Result", "File not found"); }
                     catch (java.io.IOException e) { Log.d("Result", "IO Exception"); }
-
-                getApplicationContext().deleteFile("Storage.txt");
+                //getApplicationContext().deleteFile("Storage.txt");
             }
         });
     }

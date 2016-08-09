@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         Button createNewUserButton = (Button) findViewById(R.id.createNewUserButton);
         createNewUserButton.setOnClickListener(new View.OnClickListener() {
             @Override
