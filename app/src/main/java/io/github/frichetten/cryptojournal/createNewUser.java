@@ -1,5 +1,6 @@
 package io.github.frichetten.cryptojournal;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
@@ -10,6 +11,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.security.MessageDigest;
 
 public class createNewUser extends AppCompatActivity {
@@ -19,6 +24,7 @@ public class createNewUser extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_new_user);
 
+        //Creating the EditText objects
         final EditText username = (EditText) findViewById(R.id.usernameEditText);
         username.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
         final EditText password = (EditText) findViewById(R.id.passwordEditText);
@@ -27,12 +33,9 @@ public class createNewUser extends AppCompatActivity {
         createUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Getting user input
                 String user = username.getText().toString();
                 String passwd = password.getText().toString();
-
-                Toast t = Toast.makeText(getApplicationContext(), "Creating User", Toast.LENGTH_LONG);
-                t.setGravity(Gravity.CENTER,0,0);
-                t.show();
 
                 //Need to hash the password
                 String output = passwd;
@@ -41,7 +44,21 @@ public class createNewUser extends AppCompatActivity {
                     output = String.format("%064x", new java.math.BigInteger(1, hashHolder));
                 }
 
+                //TEST CODE->
+                Toast t = Toast.makeText(getApplicationContext(), "Creating User: " + user + " " + output, Toast.LENGTH_LONG);
+                t.setGravity(Gravity.CENTER,0,0);
+                t.show();
 
+                //Now that we have the input we must put that input into the storage media
+                try {
+                    FileOutputStream out = openFileOutput("Storage.txt", Context.MODE_PRIVATE);
+                    out.write(user.getBytes());
+                    out.close();
+                    Log.d("Results", user);
+                }   catch (java.io.FileNotFoundException e) { Log.d("Result", "File not found"); }
+                    catch (java.io.IOException e) { Log.d("Result", "IO Exception"); }
+
+                getApplicationContext().deleteFile("Storage.txt");
             }
         });
     }
