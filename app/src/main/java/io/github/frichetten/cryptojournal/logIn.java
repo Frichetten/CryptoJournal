@@ -37,11 +37,13 @@ public class logIn extends AppCompatActivity {
         try {
             FileInputStream fis = openFileInput("Storage.txt");
             byte[] input = new byte[fis.available()];
-            while(fis.read(input) != -1)
-                toReturn.add(new String(input));
+            while(fis.read(input) != -1) {
+                String in = new String(input);
+                toReturn.add(in.substring(0,in.indexOf("::")));
+            }
             //Log.d("Result", content);
         }   catch (java.io.FileNotFoundException e) { Log.d("Result", "File not found"); }
-        catch (java.io.IOException e) { Log.d("Result", "IO Exception"); }
+            catch (java.io.IOException e) { Log.d("Result", "IO Exception"); }
         return toReturn;
     }
 }
