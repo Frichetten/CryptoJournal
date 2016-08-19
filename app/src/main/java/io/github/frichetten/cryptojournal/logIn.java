@@ -39,7 +39,11 @@ public class logIn extends AppCompatActivity {
             byte[] input = new byte[fis.available()];
             while(fis.read(input) != -1) {
                 String in = new String(input);
-                toReturn.add(in.substring(0,in.indexOf("::")));
+                //toReturn.add(in.substring(0,in.indexOf("::")));
+                Log.d("Result",in);
+            }
+            for(int i=0;i<toReturn.size();i++){
+                Log.d("Result",toReturn.get(i));
             }
             //Log.d("Result", content);
         }   catch (java.io.FileNotFoundException e) { Log.d("Result", "File not found"); }
